@@ -2,9 +2,9 @@ function flg = egformat(ishot,data,a)
 %eg登録データフォーマット この関数の概要をここに記述
 %   詳細説明をここに記述
 
-     filename = ['dytrans_ts_7@',num2str(ishot),'.dat'];
+     filename = ['dytrans_ts_9@',num2str(ishot),'.dat'];
      A1    = ['# [Parameters]'];
-     A2  = ['# Name = ''dytrans_ts_7'''];
+     A2  = ['# Name = ''dytrans_ts_9'''];
      A3    = ['# ShotNo = ',num2str(ishot)];
 
      formatOut = 'mm/dd/yyyy HH:MM';

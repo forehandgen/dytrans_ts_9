@@ -1,7 +1,7 @@
 
-function aaQ_out1 = mask_data(aaQ_out,timen_cx7_ex,time_cx7_ex)
+function aaQ_out1 = mask_data(aaQ_out,timen_cx9_ex,time_cx9_ex)
 
-%aaQ_out = mapTi(data_cx7_ex, time_cx7_ex, time_tsmap, timen_tsmap); %Tiをtsmapにマッピング
+%aaQ_out = mapTi(data_cx9_ex, time_cx9_ex, time_tsmap, timen_tsmap); %Tiをtsmapにマッピング
 s_data   = size(aaQ_out);
 aaQ_out1 = aaQ_out; 
 
@@ -16,12 +16,12 @@ aaQ_out1 = aaQ_out;
           
 
 
-    for j=1:timen_cx7_ex 
-    t1 = time_cx7_ex(1,j);
+    for j=1:timen_cx9_ex 
+    t1 = time_cx9_ex(1,j);
 
-    [val_cx7,idx] = min(abs(aaQ_out(:,1,1)-t1));
+    [val_cx9,idx] = min(abs(aaQ_out(:,1,1)-t1));
 
-        if val_cx7 > 1/30   %cx7のタイミングとTSのタイミングが30ms以内に収まるものを選ぶ
+        if val_cx9 > 1/30   %cx9のタイミングとTSのタイミングが30ms以内に収まるものを選ぶ
   
         else
 %j,idx
@@ -31,7 +31,7 @@ aaQ_out1 = aaQ_out;
 
                 aaQ_out1(idx,:,:)   = aaQ_out(idx,:,:);
 
-            if idx ~= timen_cx7_ex
+            if idx ~= timen_cx9_ex
                 %map_sele(idx+1,:,:) = aaQ_out(idx+1,:,:); %一つ後のフレームをおまけ
             end
         end

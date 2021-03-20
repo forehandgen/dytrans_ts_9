@@ -1,4 +1,4 @@
-function [] = dytrans_ts_7(shotn)
+function [] = dytrans_ts_9(shotn)
 
 clearvars -except shotn
 
@@ -149,90 +149,90 @@ time_auto = zeros(1,timen_auto);
 %=======================================
 
 %=======================================
-%cx7を読み込む
-    signame1 = 'cxsmap7_poly6';
+%cx9を読み込む
+    signame1 = 'cxsmap9_poly6';
     filename1 = strcat('ncm/',signame1,'@',num2str(shotn),'.dat');
 %    url      = strcat('http://egftp1.lhd.nifs.ac.jp/data/',signame1,'/',num2str(round(shotn-500,-3)),'/',num2str(shotn),'/000001/',signame1,'@',num2str(shotn),'.dat.zip');
         try
 %            ncmFiles = unzip(url,'ncm');
-            flg_cx7 = igetfile(shotn,'cxsmap7_poly6'); %for local PC
+            flg_cx9 = igetfile(shotn,'cxsmap9_poly6'); %for local PC
 % %             command  = ['igetfile -s ',num2str(shotn),' -d ',signame1,' -o ncm/',signame1,'@',num2str(shotn),'.dat']; %for egcalc
 % %             system(command); %for egcalc
-% %             flg_cx7 = 1;     %for egcalc
+% %             flg_cx9 = 1;     %for egcalc
             
-            %filename1 = 'ncm/lhdcx7_deprof@168641.dat';
+            %filename1 = 'ncm/lhdcx9_deprof@168641.dat';
             header = importdata(filename1);
 
             tmp    = extractAfter(header.textdata(8),'=');
-            timen_cx7    = str2num(tmp{1}); 
-            rown_cx7     = header.data;
-            rhon_cx7_0     = rown_cx7(1);
-            cx7_0        = readmatrix(filename1,'NumHeaderLines',21); %ヘッダー21行 %for local PC
-% %             cx7_0        = csvread(filename1,21, 0); %for egcalc
-            cx7_n_0      = size(cx7_0);
+            timen_cx9    = str2num(tmp{1}); 
+            rown_cx9     = header.data;
+            rhon_cx9_0     = rown_cx9(1);
+            cx9_0        = readmatrix(filename1,'NumHeaderLines',21); %ヘッダー21行 %for local PC
+% %             cx9_0        = csvread(filename1,21, 0); %for egcalc
+            cx9_n_0      = size(cx9_0);
             
             %=======================================
             %array 5,7抽出
-            cx7_sele   = (cx7_0(:,3) == 5 | cx7_0(:,3) == 7);
-            cx7        = cx7_0(cx7_sele,:);
-            cx7_n      = size(cx7);
-            rhon_cx7   = cx7_n(1)./timen_cx7;
+            cx9_sele   = (cx9_0(:,3) == 5 | cx9_0(:,3) == 7);
+            cx9        = cx9_0(cx9_sele,:);
+            cx9_n      = size(cx9);
+            rhon_cx9   = cx9_n(1)./timen_cx9;
             %=======================================
              delete(filename1);
 
 
-            data_cx7 = zeros(timen_cx7,rhon_cx7,cx7_n(2)); %Time, rho, val
+            data_cx9 = zeros(timen_cx9,rhon_cx9,cx9_n(2)); %Time, rho, val
             intsn = 0;
             intfn = 0;
-            time_cx7 = zeros(1,timen_cx7);
-                    for j = 1:timen_cx7
-                            time_cx7(j) = cx7((j-1).*rhon_cx7+1,1);
+            time_cx9 = zeros(1,timen_cx9);
+                    for j = 1:timen_cx9
+                            time_cx9(j) = cx9((j-1).*rhon_cx9+1,1);
 
                             intsn = intfn + 1;
-                            intfn = intfn + rhon_cx7;
+                            intfn = intfn + rhon_cx9;
 
-                            data_cx7(j,:,:) = cx7(intsn:intfn,:);
+                            data_cx9(j,:,:) = cx9(intsn:intfn,:);
 
                     end
             %=======================================
             %dniTi/dtを求めるために有効時間スライスを抽出
-            cx7_ex = cx7;
-            cx7_ex(sum(cx7(:,4:10),2) == 0,:) = []; %必要なTiデータだけを抽出
-            cx7_n_ex = size(cx7_ex);
-            timen_cx7_ex = cx7_n_ex(1)./rhon_cx7;
+            cx9_ex = cx9;
+            cx9_ex(sum(cx9(:,4:10),2) == 0,:) = []; %必要なTiデータだけを抽出
+            cx9_n_ex = size(cx9_ex);
+            timen_cx9_ex = cx9_n_ex(1)./rhon_cx9;
 
-            data_cx7_ex = zeros(timen_cx7_ex,rhon_cx7,cx7_n(2)); %Time, rho, val
+            data_cx9_ex = zeros(timen_cx9_ex,rhon_cx9,cx9_n(2)); %Time, rho, val
             intsn = 0;
             intfn = 0;
-            time_cx7_ex = zeros(1,timen_cx7_ex);
-                    for j = 1:timen_cx7_ex
-                            time_cx7_ex(j) = cx7_ex((j-1).*rhon_cx7+1,1);
+            time_cx9_ex = zeros(1,timen_cx9_ex);
+                    for j = 1:timen_cx9_ex
+                            time_cx9_ex(j) = cx9_ex((j-1).*rhon_cx9+1,1);
 
                             intsn = intfn + 1;
-                            intfn = intfn + rhon_cx7;
+                            intfn = intfn + rhon_cx9;
 
-                            data_cx7_ex(j,:,:) = cx7_ex(intsn:intfn,:);
+                            data_cx9_ex(j,:,:) = cx9_ex(intsn:intfn,:);
 
                     end
-                    data_cx7_ex0 = data_cx7_ex; %map-Ti前の有効Tiデータを抽出
+                    data_cx9_ex0 = data_cx9_ex; %map-Ti前の有効Tiデータを抽出
             %=======================================
             
             %=======================================
             %マッピングと書き換え
-            data_cx7_ex_map      = mapTi(data_cx7_ex, time_cx7_ex, time_tsmap, timen_tsmap); %Tiをtsmapにマッピング
-      %data_cx7_ex_map_sele = mapTi_select(data_cx7_ex_map,timen_cx7_ex,time_cx7_ex); %mapTi_selectは使用しない。
-            data_cx7        = data_cx7_ex_map; %data_cx7をマッピングに書き換える。
-            data_cx7_ex     = data_cx7_ex_map; %data_cx7_exをマッピングに書き換える。data_cx7とdata_cx7_exを区別なくす
+            data_cx9_ex_map      = mapTi(data_cx9_ex, time_cx9_ex, time_tsmap, timen_tsmap); %Tiをtsmapにマッピング
+      %data_cx9_ex_map_sele = mapTi_select(data_cx9_ex_map,timen_cx9_ex,time_cx9_ex); %mapTi_selectは使用しない。
+            data_cx9        = data_cx9_ex_map; %data_cx9をマッピングに書き換える。
+            data_cx9_ex     = data_cx9_ex_map; %data_cx9_exをマッピングに書き換える。data_cx9とdata_cx9_exを区別なくす
             %マッピングと書き換え終了
             %=======================================
             
         catch
             warning(strcat('something wrong! no file? ',signame1,'@',num2str(shotn)));
-            flg_cx7 = 0;
+            flg_cx9 = 0;
             return;
         end   
         
-%cx7を読み込終了
+%cx9を読み込終了
 
 %tを選択
 t1 =3.7003;
@@ -464,31 +464,31 @@ end
 
 
 %Ti
-if flg_cx7 == 1
-    [val_cx7,t1_cx7] = min(abs(data_cx7(:,1,1)-t1));
-    %[val_cx7,t1_cx7] = min(abs(data_cx7_ex(:,1,1)-t1)); %抽出データを用いる
+if flg_cx9 == 1
+    [val_cx9,t1_cx9] = min(abs(data_cx9(:,1,1)-t1));
+    %[val_cx9,t1_cx9] = min(abs(data_cx9_ex(:,1,1)-t1)); %抽出データを用いる
 
-        if val_cx7 < 1/30 %もしTi mapを使う場合は、1/100以下でも良い。なんなら一致でもいいと思う。default 1/30 @2021-03-15
+        if val_cx9 < 1/30 %もしTi mapを使う場合は、1/100以下でも良い。なんなら一致でもいいと思う。default 1/30 @2021-03-15
 
-            d_cx7 = data_cx7(t1_cx7,:,:);
-            d_cx7 = reshape(d_cx7,rhon_cx7,cx7_n(2));
+            d_cx9 = data_cx9(t1_cx9,:,:);
+            d_cx9 = reshape(d_cx9,rhon_cx9,cx9_n(2));
 
-            Ti_cx7 = [d_cx7(:,11), d_cx7(:,4), d_cx7(:,22), d_cx7(:,20)]; %reff,Ti, ni, dVdreff
-            Ti_cx7_sort_tmp = sortrows(Ti_cx7);
+            Ti_cx9 = [d_cx9(:,11), d_cx9(:,4), d_cx9(:,22), d_cx9(:,20)]; %reff,Ti, ni, dVdreff
+            Ti_cx9_sort_tmp = sortrows(Ti_cx9);
             
-            [C1,idex1]   = unique(Ti_cx7_sort_tmp(:,1)); %重複したデータを探す
-            Ti_cx7_sort = Ti_cx7_sort_tmp(idex1,:);      %重複したデータを消す
+            [C1,idex1]   = unique(Ti_cx9_sort_tmp(:,1)); %重複したデータを探す
+            Ti_cx9_sort = Ti_cx9_sort_tmp(idex1,:);      %重複したデータを消す
             
 try
-            Ti_cx7_sp      = interp1(Ti_cx7_sort(:,1),Ti_cx7_sort(:,2),reff_tsmap);
-            ni_cx7_sp      = interp1(Ti_cx7_sort(:,1),Ti_cx7_sort(:,3),reff_tsmap);
-            dVdreff_cx7_sp = interp1(Ti_cx7_sort(:,1),Ti_cx7_sort(:,4),reff_tsmap);
+            Ti_cx9_sp      = interp1(Ti_cx9_sort(:,1),Ti_cx9_sort(:,2),reff_tsmap);
+            ni_cx9_sp      = interp1(Ti_cx9_sort(:,1),Ti_cx9_sort(:,3),reff_tsmap);
+            dVdreff_cx9_sp = interp1(Ti_cx9_sort(:,1),Ti_cx9_sort(:,4),reff_tsmap);
 catch
-   warning(strcat('something wrong! interporation might be missing T=',num2str(data_cx7(t1_cx7,1,1)),'s(',num2str(t1_cx7),')'));
+   warning(strcat('something wrong! interporation might be missing T=',num2str(data_cx9(t1_cx9,1,1)),'s(',num2str(t1_cx9),')'));
    return;
 end
-            Ti_cx7_sp(isnan(Ti_cx7_sp)) = 0;       
-            if sum(Ti_cx7_sp) > 0
+            Ti_cx9_sp(isnan(Ti_cx9_sp)) = 0;       
+            if sum(Ti_cx9_sp) > 0
             %eqipartionを評価    
                             ln_lambda = 17;      %クーロン対数
                             me = 9.10938356e-31; %kg
@@ -498,7 +498,7 @@ end
                             nu_e  = 1./tau_e;
                             nu_ep = (2.*me)./mi.*nu_e; %HLOM+, CPP 2017
 
-                            dPeq = nu_ep.*(Te_tsmap-Ti_cx7_sp).*ne_tsmap.*1e19.*dVdreff_tsmap.*gradient(reff_tsmap); %s^-1 keV
+                            dPeq = nu_ep.*(Te_tsmap-Ti_cx9_sp).*ne_tsmap.*1e19.*dVdreff_tsmap.*gradient(reff_tsmap); %s^-1 keV
 
                                 dPeq1 = dPeq;
                                 dPeq1(isnan(dPeq1)) = 0;
@@ -509,42 +509,42 @@ end
                                   aaQ_out(i,:,20) = -intPeqflx.*1e-3./6.242e18; %keVs-1m-2 -> MW/m2
             %eqipartionを評価終了
             
-                %grad_Ti         = gradient(Ti_cx7_sp);
+                %grad_Ti         = gradient(Ti_cx9_sp);
                 %dTidreff        = grad_Ti./grad_reff; %重要
-                [flg_gradTi,dTidreff] = gradT(rhon_tsmap,reff_tsmap,Ti_cx7_sp,3);%重要 数値は前後何点取るか
+                [flg_gradTi,dTidreff] = gradT(rhon_tsmap,reff_tsmap,Ti_cx9_sp,3);%重要 数値は前後何点取るか
 
-                L_Ti            = dTidreff./Ti_cx7_sp;
+                L_Ti            = dTidreff./Ti_cx9_sp;
             
             %次のフレームを求める。
             %======================================
-            %次のフレームのcx7
+            %次のフレームのcx9
 
-            [val_cx7_ex,t1_cx7_ex] = min(abs(data_cx7_ex(:,1,1)-t1)); %抽出データを用いる
+            [val_cx9_ex,t1_cx9_ex] = min(abs(data_cx9_ex(:,1,1)-t1)); %抽出データを用いる
 
-s_data_cx7_ex = size(data_cx7_ex);            
-if t1_cx7_ex < s_data_cx7_ex(1)
+s_data_cx9_ex = size(data_cx9_ex);            
+if t1_cx9_ex < s_data_cx9_ex(1)
     
-                d_cx7_ex_nxt = data_cx7_ex(t1_cx7_ex+1,:,:);  
-                d_cx7_ex_nxt = reshape(d_cx7_ex_nxt,rhon_cx7,cx7_n(2)); 
+                d_cx9_ex_nxt = data_cx9_ex(t1_cx9_ex+1,:,:);  
+                d_cx9_ex_nxt = reshape(d_cx9_ex_nxt,rhon_cx9,cx9_n(2)); 
 
-        %         reff_cx7_ex_nxt    = d_cx7_ex_nxt(:,11);
-        %         Ti_cx7_ex_nxt      = d_cx7_ex_nxt(:,4);
-        %         ni_cx7_ex_nxt      = d_cx7_ex_nxt(:,22);
-        %         dVdreff_cx7_ex_nxt = d_cx7_ex_nxt(:,20);
-                Ti_cx7_nxt = [d_cx7_ex_nxt(:,11), d_cx7_ex_nxt(:,4), d_cx7_ex_nxt(:,22), d_cx7_ex_nxt(:,20)]; %reff,Ti, ni, dVdreff
-                Ti_cx7_nxt_sort_tmp = sortrows(Ti_cx7_nxt);
-                [C2,idex2]          = unique(Ti_cx7_nxt_sort_tmp(:,1)); %重複したデータを探す
-                Ti_cx7_nxt_sort     = Ti_cx7_nxt_sort_tmp(idex2,:);     %重複したデータを消す
+        %         reff_cx9_ex_nxt    = d_cx9_ex_nxt(:,11);
+        %         Ti_cx9_ex_nxt      = d_cx9_ex_nxt(:,4);
+        %         ni_cx9_ex_nxt      = d_cx9_ex_nxt(:,22);
+        %         dVdreff_cx9_ex_nxt = d_cx9_ex_nxt(:,20);
+                Ti_cx9_nxt = [d_cx9_ex_nxt(:,11), d_cx9_ex_nxt(:,4), d_cx9_ex_nxt(:,22), d_cx9_ex_nxt(:,20)]; %reff,Ti, ni, dVdreff
+                Ti_cx9_nxt_sort_tmp = sortrows(Ti_cx9_nxt);
+                [C2,idex2]          = unique(Ti_cx9_nxt_sort_tmp(:,1)); %重複したデータを探す
+                Ti_cx9_nxt_sort     = Ti_cx9_nxt_sort_tmp(idex2,:);     %重複したデータを消す
     try
-                Ti_cx7_ex_nxt_sp      = interp1(Ti_cx7_nxt_sort(:,1),Ti_cx7_nxt_sort(:,2),reff_tsmap);
-                ni_cx7_ex_nxt_sp      = interp1(Ti_cx7_nxt_sort(:,1),Ti_cx7_nxt_sort(:,3),reff_tsmap);
-                dVdreff_cx7_ex_nxt_sp = interp1(Ti_cx7_nxt_sort(:,1),Ti_cx7_nxt_sort(:,4),reff_tsmap);
+                Ti_cx9_ex_nxt_sp      = interp1(Ti_cx9_nxt_sort(:,1),Ti_cx9_nxt_sort(:,2),reff_tsmap);
+                ni_cx9_ex_nxt_sp      = interp1(Ti_cx9_nxt_sort(:,1),Ti_cx9_nxt_sort(:,3),reff_tsmap);
+                dVdreff_cx9_ex_nxt_sp = interp1(Ti_cx9_nxt_sort(:,1),Ti_cx9_nxt_sort(:,4),reff_tsmap);
 
-                niTi = ni_cx7_sp.*Ti_cx7_sp;
-                niTi_ex_nxt = ni_cx7_ex_nxt_sp.*Ti_cx7_ex_nxt_sp;
+                niTi = ni_cx9_sp.*Ti_cx9_sp;
+                niTi_ex_nxt = ni_cx9_ex_nxt_sp.*Ti_cx9_ex_nxt_sp;
 
 
-                dniTidt       = (niTi_ex_nxt-niTi)./(d_cx7_ex_nxt(1,1)-d_cx7(1,1));
+                dniTidt       = (niTi_ex_nxt-niTi)./(d_cx9_ex_nxt(1,1)-d_cx9(1,1));
                 
                 dvol_niTi = 3./2.*niTi.*dVdreff_tsmap.*gradient(reff_tsmap).*1e19./6.242e+18; %dvolume keV -> kJ %6.242e+18 eV/J
                 intvol_niTi = cumtrapz(dvol_niTi); %volume integral kJ
@@ -561,7 +561,7 @@ if t1_cx7_ex < s_data_cx7_ex(1)
                 intQi_delta = cumtrapz(dQi_delta1); %keVs^-1 出力2
   
     catch
-          warning(strcat('something wrong! interporation might be missing T=',num2str(data_cx7_ex(t1_cx7_ex,1,1)),'s(',num2str(t1_cx7_ex),')'));
+          warning(strcat('something wrong! interporation might be missing T=',num2str(data_cx9_ex(t1_cx9_ex,1,1)),'s(',num2str(t1_cx9_ex),')'));
           return;
     end    
 end
@@ -569,7 +569,7 @@ end
             else
                
                 intPeq            = zeros(rhon_tsmap,1);
-                Ti_cx7_sp         = zeros(rhon_tsmap,1);
+                Ti_cx9_sp         = zeros(rhon_tsmap,1);
                 Qe_total          = zeros(rhon_tsmap,1);
                 Qe_total_flx      = zeros(rhon_tsmap,1);
                 intQi_delta       = zeros(rhon_tsmap,1);
@@ -597,8 +597,8 @@ end
                  Qeff_total_flx   = Qeff_total./dVdreff_tsmap;
                  
                  Qe_total_flxne   = Qe_total_flx./ne_tsmap./1e19;
-                 Qi_total_flxni   = Qi_total_flx./ni_cx7_sp./1e19;
-                 Qi_noep_flxni    = Qi_noep_flx./ni_cx7_sp./1e19;
+                 Qi_total_flxni   = Qi_total_flx./ni_cx9_sp./1e19;
+                 Qi_noep_flxni    = Qi_noep_flx./ni_cx9_sp./1e19;
                  Qeff_total_flxne = Qeff_total_flx./ne_tsmap./1e19;
                  
                  chi_e = Qe_total_flxne ./ (-dTedreff);
@@ -611,7 +611,7 @@ end
                  Qi_total_flxni    = zeros(rhon_tsmap,1);
                  chi_i_noep        = zeros(rhon_tsmap,1);
             end
-                                        aaQ_out(i,:,7)  = Ti_cx7_sp;                                     
+                                        aaQ_out(i,:,7)  = Ti_cx9_sp;                                     
                                         aaQ_out(i,:,12) = Qe_total.*1e-3./6.242e18;    %keVs-1 -> MW; 
                                         aaQ_out(i,:,14) = intQi_delta.*1e-3./6.242e18; %keVs-1 -> MW;
                                         aaQ_out(i,:,15) = intPeq.*1e-3./6.242e18;      %keVs-1 -> MW;
@@ -666,7 +666,7 @@ end
 aaQ_out(isnan(aaQ_out)) = 0;
 aaQ_out(~isfinite(aaQ_out))=0;
 
-aaQ_out_mask = mask_data(aaQ_out,timen_cx7_ex,time_cx7_ex); %有効Tiショット以外をマスク
+aaQ_out_mask = mask_data(aaQ_out,timen_cx9_ex,time_cx9_ex); %有効Tiショット以外をマスク
 
 aaQ_out_regi = zeros(rhon_tsmap.*(timen_tsmap-1),41);
 for j=1:timen_tsmap-1 %dneTe/dtを評価していたため１コマ少ない
@@ -684,8 +684,8 @@ aaQ_out_regi1(aaQ_out_regi1(:,3) >1,32:41) = 0;
 size_aaQ = size(aaQ_out);
 flg_save = egformat(shotn, aaQ_out_regi1,size_aaQ);
 
-if flg_cx7 == 0
-    disp('cxsmap7_poly6 missing')
+if flg_cx9 == 0
+    disp('cxsmap9_poly6 missing')
 end
 
 if flg_fit3d == 0
@@ -700,17 +700,17 @@ if flg_gauss == 0
     disp('LHDGAUSS_DEPROF missing')
 end
 
-if flg_tsmap == 1 & flg_cx7 == 1 & flg_tsmap == 1 & flg_gauss == 1
-    message = ['dytrans_ts_7@',num2str(shotn),', iregist succeeded'];
-    %flg_iregist = iregist_data('dytrans_ts_7',shotn);
+if flg_tsmap == 1 & flg_cx9 == 1 & flg_tsmap == 1 & flg_gauss == 1
+    message = ['dytrans_ts_9@',num2str(shotn),', iregist succeeded'];
+    %flg_iregist = iregist_data('dytrans_ts_9',shotn);
 else
-    message = ['dytrans_ts_7@',num2str(shotn),', iregist failed'];
+    message = ['dytrans_ts_9@',num2str(shotn),', iregist failed'];
     disp(message);
 end
 
 if flg_save == 1
-    registfilename = ['dytrans_ts_7@',num2str(shotn),'.dat'];
-% %     delete(registfilename); %for egcalc
+    registfilename = ['dytrans_ts_9@',num2str(shotn),'.dat'];
+     delete(registfilename); %for egcalc
     
 end
 
