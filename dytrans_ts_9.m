@@ -1,8 +1,8 @@
-function [] = dytrans_ts_9(shotn)
+%function [] = dytrans_ts_9(shotn)
 
 clearvars -except shotn
 
-% shotn = 169623; %Fedelico
+ shotn = 166256; %Fedelico
 disp('ver1.3');
 disp(shotn);
 %=======================================
@@ -172,8 +172,8 @@ time_auto = zeros(1,timen_auto);
             cx9_n_0      = size(cx9_0);
             
             %=======================================
-            %array 5,7抽出
-            cx9_sele   = (cx9_0(:,3) == 5 | cx9_0(:,3) == 7);
+            %array 9抽出
+            cx9_sele   = (cx9_0(:,3) == 9); 
             cx9        = cx9_0(cx9_sele,:);
             cx9_n      = size(cx9);
             rhon_cx9   = cx9_n(1)./timen_cx9;
@@ -235,7 +235,7 @@ time_auto = zeros(1,timen_auto);
 %cx9を読み込終了
 
 %tを選択
-t1 =3.7003;
+t1 =4.03;
 
 aaQ_out = zeros(timen_tsmap,rhon_tsmap,41); 
 %'reff/a99', 'ne', 'Te', 'Ti', 'Qe_NBI', 'Qe_ECH', 'Qe_dnTdt', 'Qei_ep', 'Qe_total', 'Qe_NBI/S', 'Qe_ECH/S', 'Qe_dnTdt/S', 'Qei_ep/S', 'Qe_total/S', 'Qi_NBI', 'Qi_dnTdt', 'Qie_ep', 'Qi_total', 'Qi_NBI/S', 'Qi_dnTdt/S', 'Qie_ep/S', 'Qi_total/S', 'dVdreff', 'dTe/dreff', 'dTe/dreff/Te', 'dTi/dreff', 'dTi/dreff/Ti', 'chi_e', 'chi_e_noep', 'chi_i', 'chi_i_noep', 'chi_i_noep_Te=Ti', 'chi_eff', 'chi_eff_noep_Te=Ti'  
@@ -468,7 +468,7 @@ if flg_cx9 == 1
     [val_cx9,t1_cx9] = min(abs(data_cx9(:,1,1)-t1));
     %[val_cx9,t1_cx9] = min(abs(data_cx9_ex(:,1,1)-t1)); %抽出データを用いる
 
-        if val_cx9 < 1/30 %もしTi mapを使う場合は、1/100以下でも良い。なんなら一致でもいいと思う。default 1/30 @2021-03-15
+        if val_nb < 1/30 & val_cx9 < 1/30 %もしTi mapを使う場合は、val_cx9は1/100以下でも良い。なんなら一致でもいいと思う。default 1/30 @2021-03-15
 
             d_cx9 = data_cx9(t1_cx9,:,:);
             d_cx9 = reshape(d_cx9,rhon_cx9,cx9_n(2));
@@ -481,7 +481,7 @@ if flg_cx9 == 1
             
 try
             Ti_cx9_sp      = interp1(Ti_cx9_sort(:,1),Ti_cx9_sort(:,2),reff_tsmap);
-            ni_cx9_sp      = interp1(Ti_cx9_sort(:,1),Ti_cx9_sort(:,3),reff_tsmap);
+            ni_cx9_sp      = ne_tsmap;%interp1(Ti_cx9_sort(:,1),Ti_cx9_sort(:,3),reff_tsmap);
             dVdreff_cx9_sp = interp1(Ti_cx9_sort(:,1),Ti_cx9_sort(:,4),reff_tsmap);
 catch
    warning(strcat('something wrong! interporation might be missing T=',num2str(data_cx9(t1_cx9,1,1)),'s(',num2str(t1_cx9),')'));
@@ -537,7 +537,7 @@ if t1_cx9_ex < s_data_cx9_ex(1)
                 Ti_cx9_nxt_sort     = Ti_cx9_nxt_sort_tmp(idex2,:);     %重複したデータを消す
     try
                 Ti_cx9_ex_nxt_sp      = interp1(Ti_cx9_nxt_sort(:,1),Ti_cx9_nxt_sort(:,2),reff_tsmap);
-                ni_cx9_ex_nxt_sp      = interp1(Ti_cx9_nxt_sort(:,1),Ti_cx9_nxt_sort(:,3),reff_tsmap);
+                ni_cx9_ex_nxt_sp      = ne_tsmap_nxt_sp;%interp1(Ti_cx9_nxt_sort(:,1),Ti_cx9_nxt_sort(:,3),reff_tsmap);
                 dVdreff_cx9_ex_nxt_sp = interp1(Ti_cx9_nxt_sort(:,1),Ti_cx9_nxt_sort(:,4),reff_tsmap);
 
                 niTi = ni_cx9_sp.*Ti_cx9_sp;
@@ -710,11 +710,11 @@ end
 
 if flg_save == 1
     registfilename = ['dytrans_ts_9@',num2str(shotn),'.dat'];
-     delete(registfilename); %for egcalc
+%     delete(registfilename); %for egcalc
     
 end
 
-end
+%end
 
 % !git checkout master
 % !git branch -a
