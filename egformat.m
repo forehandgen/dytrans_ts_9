@@ -22,7 +22,7 @@ function flg = egformat(ishot,data,a)
      A13 = ['# ValUnit = '' '', ''m2'', ''e19m-3'', ''keV'', ''keV'', ''MW'', ''MW'', ''MW'', ''MW'', ''MW'', ''MW'', ''MW'', ''MW'', ''MW'', ''MWm-2'', ''MWm-2'', ''MWm-2'', ''MWm-2'', ''MWm-2'', ''MWm-2'', ''MWm-2'', ''MWm-2'', ''MWm-2'', ''keVms-1'', ''keVms-1'', ''keVm-1'', ''keVm-1'', ''m-1'', ''m-1'', ''m2s-1'', ''m2s-1'', ''m2s-1'', ''m2s-1'', ''m2s-1'', ''kJ'', ''kJ'', ''kJ'', ''ms'', ''ms'''];
      A14 = ['# [Comments]'];
      A15 = ['# Contact: motojima.gen@nifs.ac.jp or tel.2142.'];
-     A16 = ['# Ver1.3']; %versionを書く
+     A16 = ['# Ver2.2']; %versionを書く
      A17 = ['# [data]'];
 
      Aset = [A1 newline A2 newline A3 newline A4 newline A5 newline A6 newline A7 newline A8 newline A9 newline A10 newline A11 newline A12 newline A13 newline A14 newline A15 newline A16 newline A17];

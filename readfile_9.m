@@ -10,7 +10,7 @@ disp(shotn);
 %    url      = strcat('http://egftp1.lhd.nifs.ac.jp/data/',signame1,'/',num2str(round(shotn-500,-3)),'/',num2str(shotn),'/000001/',signame1,'@',num2str(shotn),'.dat.zip');
         try
             %ncmFiles = unzip(url,'ncm');           
-            flg_fit3d   = igetfile(shotn,'fit3d_sd_autoana'); %for local PC
+            flg_fit3d   = igetfile(shotn,'fit3d_sd_autoana'); %for local PC and egcalc
 % %             command     = ['igetfile -s ',num2str(shotn),' -d ',signame1,' -o ncm/',signame1,'@',num2str(shotn),'.dat']; %for egcalc
 % %             system(command); %for egcalc
 % %             flg_fit3d = 1;   %for egcalc
@@ -61,7 +61,7 @@ time_auto = zeros(1,timen_auto);
         try
             %ncmFiles = unzip(url,'ncm');
             %filename1 = 'ncm/tsmap_smooth@168641.dat';
-            flg_tsmap = igetfile(shotn,'tsmap_smooth');%for local PC
+            flg_tsmap = igetfile(shotn,'tsmap_smooth');%for local PC and egcalc
 % %             command     = ['igetfile -s ',num2str(shotn),' -d ',signame1,' -o ncm/',signame1,'@',num2str(shotn),'.dat']; %for egcalc
 % %             system(command); %for egcalc
 % %             flg_tsmap = 1;   %for egcalc
@@ -107,7 +107,7 @@ time_auto = zeros(1,timen_auto);
         try
             %ncmFiles = unzip(url,'ncm');
             %filename1 = 'ncm/lhdgauss_deprof@168641.dat';
-            flg_gauss = igetfile(shotn,'LHDGAUSS_DEPROF'); %for local PC
+            flg_gauss = igetfile(shotn,'LHDGAUSS_DEPROF'); %for local PC and egcalc
 % %             command     = ['igetfile -s ',num2str(shotn),' -d ',signame1,' -o ncm/',signame1,'@',num2str(shotn),'.dat']; %for egcalc
 % %             system(command); %for egcalc
 % %             flg_gauss = 1;   %for egcalc
@@ -153,7 +153,7 @@ time_auto = zeros(1,timen_auto);
 %    url      = strcat('http://egftp1.lhd.nifs.ac.jp/data/',signame1,'/',num2str(round(shotn-500,-3)),'/',num2str(shotn),'/000001/',signame1,'@',num2str(shotn),'.dat.zip');
         try
 %            ncmFiles = unzip(url,'ncm');
-            flg_cx9 = igetfile(shotn,'cxsmap9_poly6'); %for local PC
+            flg_cx9 = igetfile(shotn,'cxsmap9_poly6'); %for local PC and egcalc
 % %             command  = ['igetfile -s ',num2str(shotn),' -d ',signame1,' -o ncm/',signame1,'@',num2str(shotn),'.dat']; %for egcalc
 % %             system(command); %for egcalc
 % %             flg_cx9 = 1;     %for egcalc
