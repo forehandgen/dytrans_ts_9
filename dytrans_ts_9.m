@@ -492,5 +492,6 @@ end
 % !git checkout master
 % !git branch -a
 % !git add *.m
+% !git add *.sh
 % !git commit -m ''
 % !git push origin master
